@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head><title>Infrastructure Health Dashboard</title>
+<style>
+    body { font-family: Segoe UI, Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+    h1 { color: #2c3e50; border-bottom: 3px solid #27ae60; padding-bottom: 10px; }
+    h2 { color: #34495e; margin-top: 30px; border-bottom: 1px solid #bdc3c7; padding-bottom: 5px; }
+    .meta { color: #7f8c8d; margin-bottom: 20px; }
+    .dashboard { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 20px; }
+    .card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-width: 150px; text-align: center; }
+    .card .number { font-size: 36px; font-weight: bold; }
+    .card .label { color: #7f8c8d; font-size: 12px; margin-top: 5px; }
+    .card.danger .number { color: #e74c3c; }
+    .card.warning .number { color: #e67e22; }
+    .card.ok .number { color: #27ae60; }
+    table { border-collapse: collapse; width: 100%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
+    th { background: #27ae60; color: #fff; padding: 10px 8px; text-align: left; font-size: 11px; }
+    td { padding: 8px; border-bottom: 1px solid #ecf0f1; font-size: 11px; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .critical { background: #fadbd8 !important; color: #c0392b; font-weight: bold; }
+    .warning { background: #fdebd0 !important; color: #e67e22; }
+    .offline { background: #f5b7b1 !important; }
+    .bar-bg { background: #ecf0f1; width: 100px; height: 18px; display: inline-block; border-radius: 3px; overflow: hidden; vertical-align: middle; }
+    .bar { height: 18px; display: inline-block; border-radius: 3px; }
+    .bar-ok { background: #27ae60; }
+    .bar-warn { background: #e67e22; }
+    .bar-crit { background: #e74c3c; }
+</style></head>
+<body>
+    <h1>Infrastructure Health Dashboard</h1>
+    <div class="meta">Generated: 2026-02-15 07:00 | Thresholds: Warning 80% / Critical 90%</div>
+
+    <div class="dashboard">
+        <div class="card ok"><div class="number">14</div><div class="label">Servers Online</div></div>
+        <div class="card danger"><div class="number">1</div><div class="label">Servers Offline</div></div>
+        <div class="card danger"><div class="number">2</div><div class="label">Critical Disks</div></div>
+        <div class="card danger"><div class="number">1</div><div class="label">Stopped Services</div></div>
+    </div>
+
+    <h2>Server Inventory</h2>
+    <table>
+        <tr><th>Server</th><th>OS</th><th>Manufacturer</th><th>Model</th><th>CPU</th><th>RAM</th><th>Uptime</th></tr>
+        <tr><td>DC01</td><td>Windows Server 2022 Std</td><td>Dell Inc.</td><td>PowerEdge R740</td><td>Xeon Gold 6248R</td><td>64 GB</td><td>45.2 days</td></tr>
+        <tr><td>DC02</td><td>Windows Server 2022 Std</td><td>Dell Inc.</td><td>PowerEdge R740</td><td>Xeon Gold 6248R</td><td>64 GB</td><td>45.2 days</td></tr>
+        <tr><td>SQL01</td><td>Windows Server 2022 Std</td><td>Dell Inc.</td><td>PowerEdge R750</td><td>Xeon Gold 6338</td><td>256 GB</td><td>12.8 days</td></tr>
+        <tr><td>EXCH01</td><td>Windows Server 2019 Std</td><td>Dell Inc.</td><td>PowerEdge R740</td><td>Xeon Silver 4214R</td><td>128 GB</td><td>90.5 days</td></tr>
+        <tr><td>FILE01</td><td>Windows Server 2022 Std</td><td>Dell Inc.</td><td>PowerEdge R750</td><td>Xeon Silver 4314</td><td>32 GB</td><td>30.1 days</td></tr>
+        <tr><td>WEB01</td><td>Windows Server 2022 Std</td><td>HPE</td><td>ProLiant DL380 Gen10</td><td>Xeon Silver 4210R</td><td>32 GB</td><td>60.3 days</td></tr>
+        <tr><td>WEB02</td><td>Windows Server 2022 Std</td><td>HPE</td><td>ProLiant DL380 Gen10</td><td>Xeon Silver 4210R</td><td>32 GB</td><td>60.3 days</td></tr>
+        <tr><td>APP01</td><td>Windows Server 2019 Std</td><td>Dell Inc.</td><td>PowerEdge R640</td><td>Xeon Silver 4214</td><td>64 GB</td><td>22.7 days</td></tr>
+        <tr class="offline"><td>PRINT-SRV01</td><td colspan="6">OFFLINE - Cannot connect</td></tr>
+    </table>
+
+    <h2>Disk Space</h2>
+    <table>
+        <tr><th>Server</th><th>Drive</th><th>Size</th><th>Free</th><th>Used</th><th>Status</th></tr>
+        <tr class="critical"><td>SQL01</td><td>E:</td><td>500 GB</td><td>22.5 GB</td><td><div class="bar-bg"><div class="bar bar-crit" style="width:96px"></div></div> 95.5%</td><td>Critical</td></tr>
+        <tr class="critical"><td>EXCH01</td><td>D:</td><td>1000 GB</td><td>45.0 GB</td><td><div class="bar-bg"><div class="bar bar-crit" style="width:96px"></div></div> 95.5%</td><td>Critical</td></tr>
+        <tr class="warning"><td>FILE01</td><td>D:</td><td>4000 GB</td><td>680.0 GB</td><td><div class="bar-bg"><div class="bar bar-warn" style="width:83px"></div></div> 83.0%</td><td>Warning</td></tr>
+        <tr class="warning"><td>SQL01</td><td>L:</td><td>200 GB</td><td>34.0 GB</td><td><div class="bar-bg"><div class="bar bar-warn" style="width:83px"></div></div> 83.0%</td><td>Warning</td></tr>
+        <tr><td>DC01</td><td>C:</td><td>100 GB</td><td>52.3 GB</td><td><div class="bar-bg"><div class="bar bar-ok" style="width:48px"></div></div> 47.7%</td><td>OK</td></tr>
+        <tr><td>DC02</td><td>C:</td><td>100 GB</td><td>55.1 GB</td><td><div class="bar-bg"><div class="bar bar-ok" style="width:45px"></div></div> 44.9%</td><td>OK</td></tr>
+        <tr><td>SQL01</td><td>C:</td><td>150 GB</td><td>78.2 GB</td><td><div class="bar-bg"><div class="bar bar-ok" style="width:48px"></div></div> 47.9%</td><td>OK</td></tr>
+        <tr><td>WEB01</td><td>C:</td><td>100 GB</td><td>62.0 GB</td><td><div class="bar-bg"><div class="bar bar-ok" style="width:38px"></div></div> 38.0%</td><td>OK</td></tr>
+        <tr><td>WEB02</td><td>C:</td><td>100 GB</td><td>64.5 GB</td><td><div class="bar-bg"><div class="bar bar-ok" style="width:36px"></div></div> 35.5%</td><td>OK</td></tr>
+        <tr><td>APP01</td><td>C:</td><td>200 GB</td><td>141.0 GB</td><td><div class="bar-bg"><div class="bar bar-ok" style="width:30px"></div></div> 29.5%</td><td>OK</td></tr>
+    </table>
+
+    <h2>Stopped Services (Needs Attention)</h2>
+    <table>
+        <tr><th>Server</th><th>Service</th><th>Status</th><th>Start Mode</th></tr>
+        <tr class="critical"><td>PRINT-SRV01</td><td>Print Spooler</td><td>Stopped</td><td>Auto</td></tr>
+    </table>
+</body>
+</html>
