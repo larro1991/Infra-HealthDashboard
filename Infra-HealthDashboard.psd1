@@ -24,7 +24,7 @@
     PrivateData = @{
         PSData = @{
             Tags       = @('Infrastructure', 'Monitoring', 'Health', 'Dashboard', 'ServerInventory', 'DiskSpace')
-            ProjectUri = 'https://github.com/yourGitHub/Infra-HealthDashboard'
+            ProjectUri = 'https://github.com/larro1991/Infra-HealthDashboard'
         }
     }
 }
